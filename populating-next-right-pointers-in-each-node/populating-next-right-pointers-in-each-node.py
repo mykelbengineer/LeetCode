@@ -10,31 +10,21 @@ class Node:
 ​
 class Solution:
     def connect(self, root: 'Node') -> 'Node':
-        if not root: return None
         
-        curr_level = [root]
+        if not root : return None
         
-        while curr_level:
-            level_nodes = []
-            next_level = []
+        curr = root
+        next = curr.left
+        
+        while curr.left:
+            curr.left.next = curr.right
             
-            for i in range(len(curr_level)):
-                if i + 1 >= len(curr_level):
-                    curr_level[i].next = None
-                else:
-                    curr_level[i].next = curr_level[i + 1]
-                    
+            if curr.next:
+                curr.right.next = curr.next.left
+                curr = curr.next
             
-            for node in curr_level:
-                
-                if node.left:
-                    next_level.append(node.left)
-                
-                if node.right:
-                    next_level.append(node.right)
-                    
-            
-            curr_level = next_level
+            else: 
+                curr = next
+                next = curr.left
         
         return root
-        

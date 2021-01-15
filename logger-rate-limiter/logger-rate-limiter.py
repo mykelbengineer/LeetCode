@@ -4,7 +4,7 @@ class Logger:
         """
         Initialize your data structure here.
         """
-        self.log_dict = {}
+        self.log_dict = collections.defaultdict()
         
 ​
     def shouldPrintMessage(self, timestamp: int, message: str) -> bool:
@@ -14,14 +14,15 @@ class Logger:
         The timestamp is in seconds granularity.
         """
         if message not in self.log_dict:
-            self.log_dict[message] = timestamp
+            self.log_dict[message] = timestamp + 10
             return True
+        
         else:
-            if self.log_dict[message] + 9 < timestamp:
-                self.log_dict[message] = timestamp
+            if self.log_dict[message] <= timestamp:
+                self.log_dict[message] = timestamp + 10
                 return True
-            else:
-                return False
+            return False
+ 
                 
 ​
 ​

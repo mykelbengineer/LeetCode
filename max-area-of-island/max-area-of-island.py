@@ -3,28 +3,26 @@ class Solution:
         
         count = 0
         
-        def dfs(i,j, grid):
-            if i < 0 or j < 0 or i >= len(grid) or j >= len(grid[i]) or grid[i][j] == 0:
-                return 0
-            
-            grid[i][j] = 0
-            
-            up = dfs(i-1, j, grid)
-            down = dfs(i+1, j, grid)
-            left = dfs(i,j-1, grid)
-            right = dfs(i, j+1, grid)
-            
-            return up + down + left + right + 1
-        
         for i in range(len(grid)):
             for j in range(len(grid[i])):
-                
                 if grid[i][j] == 1:
+                    count = max(count,self.dfs(grid, i, j))
                     
-                    count = max(dfs(i,j,grid), count)
-                    
-        
         return count
-                    
-                   
+    
+    
+    def dfs(self, grid, i, j):
+        if i < 0 or j < 0 or i >= len(grid) or j >= len(grid[i]) or grid[i][j] == 0:
+            return 0
+        
+        grid[i][j] = 0
+        
+        up = self.dfs(grid, i-1,j)
+        down = self.dfs(grid, i+1,j)
+        left = self.dfs(grid, i,j-1)
+        right = self.dfs(grid, i,j+1)
+        
+        return 1 + up + down + left + right
+        
+        
                     

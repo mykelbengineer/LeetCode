@@ -1,16 +1,17 @@
 class Solution:
     def isValid(self, s: str) -> bool:
-        paren_set = {')':'(', '}':'{', ']':'['}
+        pa_map = {']':'[', '}':'{', ')':'('}
         stack = []
         
         for brace in s:
-            if brace in paren_set:
-                top_elem = stack.pop() if stack else '#'
+            if brace in pa_map:
+                last_elem = stack.pop() if stack else '#'
                 
-                if paren_set[brace] != top_elem:
+                if pa_map[brace] != last_elem:
                     return False
+            
             else:
-                
                 stack.append(brace)
                 
         return not stack
+        

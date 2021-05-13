@@ -7,5 +7,9 @@ class Solution:
             if i + nums[i] >= pos:
                 pos = i
                 
+        
         return pos == 0
+                
+            
+
         

@@ -10,15 +10,16 @@ class Solution:
         
         if N == 0: return None
         
-        def bst(nums, left, right):
+        def BST(nums, left, right):
             if left > right: return None
             
             mid = (left + right) // 2
             
-            node = TreeNode(nums[mid])
-            node.left = bst(nums, left, mid  - 1)
-            node.right = bst(nums, mid + 1, right)
+            root = TreeNode(nums[mid])
+            root.left = BST(nums,left, mid-1)
+            root.right = BST(nums, mid+1, right)
             
-            return node
+            return root
         
-        return bst(nums, 0, N-1)
+        return BST(nums, 0, N-1)
+        

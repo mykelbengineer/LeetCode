@@ -1,28 +1,25 @@
 class Solution:
-    def lengthOfLongestSubstring(self, s: str) -> int:
-        
-        left = right = max_count =  0
-        len_of_s = len(s)
-        check_dict = set()
-        
-        
-        while  left < len_of_s and right < len_of_s:
-            if s[right] not in check_dict:
-                check_dict.add(s[right])
-                right += 1
-                max_count = max(max_count, right - left)
-                
-            else:
-                check_dict.remove(s[left])
-                left += 1
-​
-                
-        
-        return max_count
-                
-                
-                
-            
-            
-        
-        
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        L  = R = Count = 0
+        N = len(s)
+        m_map = set()
+        
+        
+        while L < N and R < N:
+            if s[R] not in m_map:
+                m_map.add(s[R])
+                R += 1
+                Count = max(Count, R - L)
+                
+            else:
+                m_map.remove(s[L])
+                L += 1
+                
+        return Count
+        
+                
+                
+            
+            
+        
+        

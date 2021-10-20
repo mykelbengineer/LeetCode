@@ -1,27 +1,26 @@
 class Solution:
     def numIslands(self, grid: List[List[str]]) -> int:
         count = 0
+        queue = deque([])
         
-        def dfs(i,j,grid):
-            if i < 0 or i >= len(grid) or j >= len(grid[0]) or j < 0 or grid[i][j] != '1':
-                return
-            
-            
-            grid[i][j] = '#'
-            
-            up = dfs(i-1,j, grid)
-            down = dfs(i+1, j, grid)
-            left = dfs(i,j-1,grid)
-            right = dfs(i, j+1, grid)
-            
-        
+        def bfs(queue, grid):
+            while queue:
+                I, J = queue.popleft()
+                for i, j in ([I-1, J], [I+1,J], [I, J-1], [I, J+1]):
+                    if 0 <= i < len(grid) and 0 <= j < len(grid[0]) and grid[i][j] == '1':
+                        queue.append((i,j))
+                        grid[i][j] = '0'
+                        
         
         for i in range(len(grid)):
             for j in range(len(grid[0])):
                 if grid[i][j] == '1':
-                    dfs(i,j,grid)
+                    grid[i][j] = '0'
+                    queue.append((i,j))
+                    bfs(queue, grid)
                     count += 1
                     
-        return count
-                
+                    
+        return count 
+                    
             

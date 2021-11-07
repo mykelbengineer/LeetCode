@@ -4,17 +4,19 @@
 #         self.val = val
 #         self.next = next
 class Solution:
-    def sortList(self, head: ListNode) -> ListNode: 
+    def sortList(self, head: Optional[ListNode]) -> Optional[ListNode]:
         if not head or not head.next: return head
+            
         mid = self.getMid(head)
         left = self.sortList(head)
         right = self.sortList(mid)
-        return self.merge(left, right)
+        
+        return self.mergeList(left, right)
+        
     
     
-    
-    
-    def getMid(self, node):
+    def getMid(self,node):
+        
         slow = fast = node
         
         while fast.next and fast.next.next:
@@ -22,25 +24,22 @@ class Solution:
             fast = fast.next.next
             
         mid = slow.next
+            
         slow.next = None
         
         return mid
     
     
-    def merge(self, leftNode, rightNode):
+    def mergeList(self, node1, node2):
+        
         dummy = tail = ListNode(None)
         
-        while leftNode and rightNode:
-            if leftNode.val < rightNode.val:
-                tail.next, tail, leftNode = leftNode, leftNode, leftNode.next
-
+        while node1 and node2:
+            if node1.val < node2.val:
+                tail.next, tail, node1 = node1, node1, node1.next
             else:
-                tail.next, tail, rightNode = rightNode, rightNode, rightNode.next
-            
-        tail.next = leftNode or rightNode
+                tail.next, tail, node2 = node2, node2, node2.next
+                
+        tail.next = node1 or node2
         
         return dummy.next
-        
-        
-
-            

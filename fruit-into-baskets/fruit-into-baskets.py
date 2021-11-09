@@ -1,29 +1,24 @@
 class Solution:
-    def totalFruit(self, tree: List[int]) -> int:
-        basket_a = basket_b = -1
-        c_basket_b = curr_max = max_count = 0
-        
-        for fruit in tree:
-            if fruit == basket_a or fruit == basket_b:
-                curr_max += 1
-                
-            else:
-                curr_max = c_basket_b + 1
-                
-            
-            if fruit == basket_b:
-                c_basket_b += 1
-            
-            else:
-                c_basket_b = 1
-                
-            if fruit != basket_b:
-                basket_a = basket_b
-                basket_b = fruit
-            
-            max_count = max(max_count, curr_max)
-​
-                
-        return max_count
-        
-        
+    def totalFruit(self, fruits: List[int]) -> int:
+        baskets = 2
+        output = float(-inf)
+        left = 0
+        fruit_freq = defaultdict(int)
+        
+        for right in range(len(fruits)):
+            right_fruit = fruits[right]
+            fruit_freq[right_fruit] += 1
+            
+            
+            while len(fruit_freq) > baskets:
+                left_fruit = fruits[left]
+                fruit_freq[left_fruit] -= 1
+                if fruit_freq[left_fruit] == 0:
+                    del fruit_freq[left_fruit]
+                left += 1
+                    
+            output = max(output, right - left + 1)
+            
+        
+        return output
+        

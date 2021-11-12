@@ -1,37 +1,43 @@
+class UnionFind:
+    def __init__(self,size):
+        self.root = [i for i in range(size)]
+        self.rank = [1] * size
+        self.count = size
+    
+    def find(self, idx):
+        if self.root[idx] == idx:
+            return idx
+        
+        self.root[idx] = self.find(self.root[idx])
+        return self.root[idx]
+    
+    def union(self, idx, idy):
+        rootX = self.find(idx)
+        rootY = self.find(idy)
+        
+        if rootX != rootY:
+            
+            if self.rank[rootX] > self.rank[rootY]:
+                self.root[rootY] = rootX
+                
+            elif self.rank[rootX] < self.rank[rootY]:
+                self.root[rootX] = rootY
+                
+            else:
+                self.root[rootY] = rootX
+                self.rank[rootX] += 1    
+                
+            self.count -= 1
+            
+    def getCount(self):
+        return self.count
+    
+            
 class Solution:
     def countComponents(self, n: int, edges: List[List[int]]) -> int:
+        UnionFinda = UnionFind(n)
         
-        adjList = [[] for _ in range(n)]
-        
-        for e1,e2 in edges:
-            adjList[e1].append(e2)
-            adjList[e2].append(e1)
+        for e1, e2 in edges:
+            UnionFinda.union(e1,e2)
             
-            
-        stack = []
-        seen = set()
-        output = 0
-        
-        for i in range(n):
-            if i not in seen:
-                seen.add(i)
-                stack.append(i)
-                
-                while stack:
-                    
-                    node = stack.pop()
-                    
-                    for nei in adjList[node]:
-                        if nei in seen:
-                            continue
-                            
-                        seen.add(nei)
-                        stack.append(nei)
-                        
-                output += 1
-            
-            
-        
-        return output
-        
-        
+        return UnionFinda.getCount()

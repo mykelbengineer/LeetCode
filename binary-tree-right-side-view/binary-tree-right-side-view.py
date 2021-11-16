@@ -5,17 +5,17 @@
 #         self.left = left
 #         self.right = right
 class Solution:
-    def rightSideView(self, root: TreeNode) -> List[int]:
+    def rightSideView(self, root: Optional[TreeNode]) -> List[int]:
+        if not root: return []
+        
+        curr_level = [root]
         output = []
-        if not root: return output
         
-        current_level = [root]
-        
-        while current_level:
-            level_nodes = []
+        while curr_level:
             next_level = []
+            level_nodes = []
             
-            for node in current_level:
+            for node in curr_level:
                 level_nodes.append(node.val)
                 
                 if node.left:
@@ -25,9 +25,8 @@ class Solution:
                     next_level.append(node.right)
                     
             output.append(level_nodes[-1])
+            curr_level = next_level
             
-            current_level = next_level
             
-        
         return output
         

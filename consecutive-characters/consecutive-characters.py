@@ -1,20 +1,18 @@
 class Solution:
     def maxPower(self, s: str) -> int:
-        seen = set()
-        output = 0
-        count = 0
-        left = 0
+        count = max_count = 0
+        prev = None
         
-        while left < len(s):
-            if s[left] not in seen:
-                seen.clear()
-                seen.add(s[left])
-                count = 1
-                
-            else:
+        for char in s:
+            if char == prev:
                 count += 1
                 
-            output = max(output, count)
-            left += 1
+            else:
+                count = 1
+                prev = char
+            
+            max_count = max(max_count, count)
+            
         
-        return output
+        return max_count
+        

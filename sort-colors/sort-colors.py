@@ -3,22 +3,22 @@ class Solution:
         """
         Do not return anything, modify nums in-place instead.
         """
-        L = curr = 0
-        R = len(nums) - 1
+        curr = left = 0
+        right = len(nums) - 1
         
-        while curr <= R:
+        while curr <= right:
             if nums[curr] == 0:
-                nums[L], nums[curr] = nums[curr], nums[L]
+                nums[curr], nums[left] = nums[left], nums[curr]
+                left += 1
                 curr += 1
-                L += 1
+                
                 
             elif nums[curr] == 2:
-                nums[R], nums[curr] = nums[curr], nums[R]
-                R -= 1
+                nums[curr], nums[right] = nums[right], nums[curr]
+                right -= 1
                 
             else:
                 curr += 1
-        
-        
-        
+                
+                
         

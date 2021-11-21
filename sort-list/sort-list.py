@@ -6,40 +6,47 @@
 class Solution:
     def sortList(self, head: Optional[ListNode]) -> Optional[ListNode]:
         if not head or not head.next: return head
-            
+        
         mid = self.getMid(head)
         left = self.sortList(head)
         right = self.sortList(mid)
         
-        return self.mergeList(left, right)
+        return self.mergeList(left,right)
         
-    
-    
-    def getMid(self,node):
         
-        slow = fast = node
+    def getMid(self, linkedList):
+        
+        slow = fast = linkedList
         
         while fast.next and fast.next.next:
             slow = slow.next
             fast = fast.next.next
             
-        mid = slow.next
             
+        mid = slow.next
         slow.next = None
         
         return mid
     
     
-    def mergeList(self, node1, node2):
+    def mergeList(self, list1, list2):
         
-        dummy = tail = ListNode(None)
+        tail = dummy = ListNode(None)
         
-        while node1 and node2:
-            if node1.val < node2.val:
-                tail.next, tail, node1 = node1, node1, node1.next
-            else:
-                tail.next, tail, node2 = node2, node2, node2.next
+        while list1 and list2:
+            if list1.val < list2.val:
+                tail.next = list1
+                list1 = list1.next
                 
-        tail.next = node1 or node2
-        
+            else:
+                tail.next = list2
+                list2 = list2.next
+                
+            tail = tail.next
+            
+        if list1: tail.next = list1
+        if list2: tail.next = list2
+            
         return dummy.next
+        
+        

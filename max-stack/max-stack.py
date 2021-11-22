@@ -1,29 +1,29 @@
 class MaxStack:
 
     def __init__(self):
-        self.soft_delete = set()
-        self.stack = []
         self.max_heap = []
+        self.soft_delete = set()
         self.id = 0
+        self.stack = []
         
-
     def push(self, x: int) -> None:
-        heapq.heappush(self.max_heap, (-x, self.id))   
+        heapq.heappush(self.max_heap, (-x, self.id))
         self.stack.append((x, self.id))
         self.id -= 1
         
-    def _clean_up(self):
+    
+    def _cleanup(self):
         while self.stack and self.stack[-1][1] in self.soft_delete:
             self.soft_delete.remove(self.stack.pop()[1])
         while self.max_heap and self.max_heap[0][1] in self.soft_delete:
             self.soft_delete.remove(heapq.heappop(self.max_heap)[1])
-                 
-
+    
     def pop(self) -> int:
-        element = self.stack.pop()
-        self.soft_delete.add(element[1])
-        self._clean_up()
-        return element[0]
+        element, element_key = self.stack.pop()
+        self.soft_delete.add(element_key)
+        self._cleanup()
+        return element
+        
 
     def top(self) -> int:
         return self.stack[-1][0]
@@ -34,11 +34,10 @@ class MaxStack:
         
 
     def popMax(self) -> int:
-        max_element, ele_id = heapq.heappop(self.max_heap)
-        self.soft_delete.add(ele_id)
-        self._clean_up()
-        return -max_element
-        
+        element, element_key = heapq.heappop(self.max_heap)
+        self.soft_delete.add(element_key)
+        self._cleanup()
+        return -element
         
 
 

@@ -4,23 +4,31 @@
 #         self.val = val
 #         self.next = next
 class Solution:
-    def isPalindrome(self, head: ListNode) -> bool:
-        if not head: return False
+    def isPalindrome(self, head: Optional[ListNode]) -> bool:
         
-        slow = fast = head
+        # break list into two
+        dummy = slow = ListNode(None)
+        fast = dummy.next = head
         
         while fast and fast.next:
             slow = slow.next
             fast = fast.next.next
             
+        mid = slow.next
+        slow.next = None
+        
+        # reverse second list
+        
         prev = None
         
-        while slow:
-            tmp = slow
-            slow = slow.next
-            tmp.next = prev
-            prev = tmp
+        while mid:
+            tmp = mid.next
+            mid.next = prev
+            prev = mid
+            mid = tmp
             
+            
+        # compare the two lists
         
         while head and prev:
             if head.val != prev.val:
@@ -31,5 +39,4 @@ class Solution:
             
         
         return True
-        
         

@@ -13,18 +13,18 @@ class Codec:
         :type root: TreeNode
         :rtype: str
         """
-        def serial(root):
+        def dfs(root):
             if not root:
                 output.append('N')
                 return
             
             output.append(str(root.val))
             
-            serial(root.left)
-            serial(root.right)
+            dfs(root.left)
+            dfs(root.right)
             
         output = []
-        serial(root)
+        dfs(root)
         
         return ','.join(output)
 
@@ -34,26 +34,23 @@ class Codec:
         :type data: str
         :rtype: TreeNode
         """
-        serialized_tree = data.split(',')
+        serial_data = data.split(',')
         self.i = 0
         
-        def deserial():
-            if serialized_tree[self.i] == 'N':
+        def dfs():
+            if serial_data[self.i] == 'N':
                 self.i += 1
                 return
-            
-            root = TreeNode(int(serialized_tree[self.i]))
+                
+            root = TreeNode(int(serial_data[self.i]))
             self.i += 1
             
-            root.left = deserial()
-            root.right = deserial()
+            root.left = dfs()
+            root.right = dfs()
             
             return root
         
-        
-        return deserial()
-            
-        
+        return dfs()
 
 # Your Codec object will be instantiated and called as such:
 # ser = Codec()

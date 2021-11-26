@@ -1,18 +1,15 @@
 class Solution:
     def maxPower(self, s: str) -> int:
-        count = max_count = 0
-        prev = None
+        longest = count = 1
         
-        for char in s:
-            if char == prev:
+        for i in range(1, len(s)):
+            if s[i-1] == s[i]:
                 count += 1
                 
             else:
                 count = 1
-                prev = char
+                
+            longest = max(longest, count)
             
-            max_count = max(max_count, count)
-            
-        
-        return max_count
+        return longest
         

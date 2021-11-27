@@ -6,12 +6,18 @@
 #         self.right = right
 class Solution:
     def constructFromPrePost(self, preorder: List[int], postorder: List[int]) -> Optional[TreeNode]:
-
         if not preorder: return
+        
         root = TreeNode(preorder[0])
-        preorder, postorder = preorder[1:], postorder[:-1]
-        if not preorder: return root
+        preorder = preorder[1:]
+        postorder = postorder[:-1]
+        if not postorder: return root
+        
         i = postorder.index(preorder[0])
+        
         root.left = self.constructFromPrePost(preorder[:i+1], postorder[:i+1])
         root.right = self.constructFromPrePost(preorder[i+1:], postorder[i+1:])
+        
         return root
+        
+        

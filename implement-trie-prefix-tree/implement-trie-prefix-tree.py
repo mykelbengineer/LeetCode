@@ -3,11 +3,11 @@ class TrieNode:
     def __init__(self):
         self.children = {}
         self.endOfWord = False
-
+        
 class Trie:
 
     def __init__(self):
-        self.root = TrieNode() 
+        self.root = TrieNode()
         
 
     def insert(self, word: str) -> None:
@@ -16,10 +16,10 @@ class Trie:
         for ch in word:
             if ch not in curr.children:
                 curr.children[ch] = TrieNode()
+                
             curr = curr.children[ch]
             
         curr.endOfWord = True
-        
 
     def search(self, word: str) -> bool:
         curr = self.root
@@ -27,7 +27,7 @@ class Trie:
         for ch in word:
             if ch not in curr.children:
                 return False
-            
+                
             curr = curr.children[ch]
             
         return curr.endOfWord
@@ -39,11 +39,10 @@ class Trie:
         for ch in prefix:
             if ch not in curr.children:
                 return False
-            
+                
             curr = curr.children[ch]
             
         return True
-            
         
 
 

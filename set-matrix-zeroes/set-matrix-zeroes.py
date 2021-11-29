@@ -4,40 +4,37 @@ class Solution:
         Do not return anything, modify matrix in-place instead.
         """
         
-        row_count = len(matrix)
-        column_count = len(matrix[0])
+        rows = len(matrix)
+        columns = len(matrix[0])
         
-        def flip_row(pos):
-            for i in range(column_count):
-                if matrix[pos][i] != 0:
-                    matrix[pos][i] = "*"
+        def flip_row(index):
+            for i in range(columns):
+                if matrix[index][i] != 0:
+                    matrix[index][i] = '*'
+                    
+        def flip_column(index):
+            for i in range(rows):
+                if matrix[i][index] != 0:
+                    matrix[i][index] = '*'
                     
         
-        def flip_column(pos):
-            for i in range(row_count):
-                if matrix[i][pos] != 0:
-                    matrix[i][pos] = "*"
-                    
-        
-        for i in range(row_count):
-            for j in range(column_count):
+        for i in range(rows):
+            for j in range(columns):
                 if matrix[i][j] == 0:
                     flip_row(i)
-                    break
-        
-        for j in range(column_count):
-            for i in range(row_count):
+                    
+        for i in range(rows):
+            for j in range(columns):
                 if matrix[i][j] == 0:
                     flip_column(j)
-                    break
                     
-                
-        for i in range(row_count):
-            for j in range(column_count):
-                if matrix[i][j] == "*":
+                    
+        for i in range(rows):
+            for j in range(columns):
+                if matrix[i][j] == '*':
                     matrix[i][j] = 0
+                    
+                    
         
-            
-
-            
+        
         

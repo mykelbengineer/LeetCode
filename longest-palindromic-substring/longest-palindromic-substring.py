@@ -1,13 +1,11 @@
 class Solution:
     def longestPalindrome(self, s: str) -> str:
-        
-        res = ""
+        res = ''
         
         for i in range(len(s)):
-            res = max(self.helper(s,i,i), self.helper(s,i, i+1), res, key=len)
+            res = max(self.helper(s, i, i), self.helper(s, i, i+1), res, key=len)
             
         return res
-        
         
     
     def helper(self, string, left, right):
@@ -15,5 +13,5 @@ class Solution:
             left -= 1
             right += 1
             
-        return string[left + 1: right]
+        return string[left+1:right]
         

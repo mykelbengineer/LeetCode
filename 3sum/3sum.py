@@ -1,36 +1,34 @@
 class Solution:
     def threeSum(self, nums: List[int]) -> List[List[int]]:
-        res = set()
-
-        #1. Split nums into three lists: negative numbers, positive numbers, and zeros
-        n, p, z = [], [], []
-        for num in nums:
-            if num > 0:
-                p.append(num)
-            elif num < 0: 
-                n.append(num)
-            else:
-                z.append(num)
+        res = []
+        nums.sort()
         
-        N, P = set(n), set(p)
-        
-        if z:
-            for num in P:
-                if -num in N:
-                    res.add((-num, 0, num))
-                    
-        if len(z) >= 3:
-            res.add((0,0,0))
-
-        N_S = set(nums)
-        
-        for s in [n, p]:
-            for i in range(len(s)):
-                for j in range(i + 1, len(s)):
-                    target = -(s[i] + s[j])
-                    if target in N_S:
-                        res.add(tuple(sorted([s[i], s[j], target])))
+        for index, value in enumerate(nums):
+            if index > 0 and value == nums[index - 1]:
+                continue
                 
-        
+            left = index + 1
+            right = len(nums) - 1
+                
+            while left < right:
+                    
+                threeSum = value + nums[left] + nums[right]
+                    
+                if threeSum > 0:
+                    right -= 1
+                        
+                elif threeSum < 0:
+                    left += 1
+                        
+                else:
+                    res.append([value, nums[left], nums[right]])
+                    left += 1
+                        
+                    while nums[left] == nums[left - 1] and left < right:
+                        left += 1
+                            
         return res
+                
+                
+                
         

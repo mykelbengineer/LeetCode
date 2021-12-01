@@ -4,30 +4,26 @@
 #         self.val = val
 #         self.next = next
 class Solution:
-    def rotateRight(self, head: ListNode, k: int) -> ListNode:
-        # base cases
-        if not head:
-            return None
-        if not head.next:
-            return head
+    def rotateRight(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:
+        if not head: return None
         
-        # close the linked list into the ring
-        old_tail = head
+        old_head = head
         n = 1
-        while old_tail.next:
-            old_tail = old_tail.next
+        
+        while old_head.next:
+            old_head = old_head.next
             n += 1
-        old_tail.next = head
+            
+        old_head.next = head
+        tail = head
         
-        # find new tail : (n - k % n - 1)th node
-        # and new head : (n - k % n)th node
-        new_tail = head
-        for i in range(n - k % n - 1):
-            new_tail = new_tail.next
-        new_head = new_tail.next
-        
-        # break the ring
-        new_tail.next = None
+        for _ in range(n-k%n-1):
+            tail = tail.next
+            
+        new_head = tail.next
+        tail.next = None
         
         return new_head
- 
+        
+        
+        

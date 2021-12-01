@@ -1,13 +1,14 @@
-class Node:
-    def __init__(self, key=-1, value=-1, next=None):
+class ListNode:
+    
+    def __init__(self, key=None, val=None, next = None):
         self.key = key
-        self.value=value
-        self.next=None
+        self.val = val
+        self.next = next
 
 class MyHashMap:
 
     def __init__(self):
-        self.data = [Node() for _ in range(2069)]
+        self.data = [ListNode() for _ in range(2069)]
         self.size = len(self.data)
         
     def _getHashCode(self, key):
@@ -20,11 +21,12 @@ class MyHashMap:
         
         while head.next:
             if head.next.key == key:
-                head.next.value = value
+                head.next.val = value
                 return
             head = head.next
             
-        head.next = Node(key,value)
+        head.next = ListNode(key,value)
+        
 
     def get(self, key: int) -> int:
         hashcode = self._getHashCode(key)
@@ -32,11 +34,11 @@ class MyHashMap:
         
         while head.next:
             if head.next.key == key:
-                return head.next.value
-            
+                return head.next.val
             head = head.next
             
         return -1
+        
 
     def remove(self, key: int) -> None:
         hashcode = self._getHashCode(key)
@@ -49,8 +51,7 @@ class MyHashMap:
                 toRemove.next = None
                 return
             head = head.next
-        
-        
+            
 
 
 # Your MyHashMap object will be instantiated and called as such:

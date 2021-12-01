@@ -1,43 +1,52 @@
 class MaxStack:
 
     def __init__(self):
-        self.max_heap = []
-        self.soft_delete = set()
-        self.id = 0
+        self.heap = []
         self.stack = []
+        self.soft = set()
+        self.id = 0
         
+        
+    def _soft_delete(self):
+        while self.stack and self.stack[-1][1] in self.soft:
+            self.soft.remove(self.stack.pop()[1])
+        while self.heap and self.heap[0][1] in self.soft:
+            self.soft.remove(heapq.heappop(self.heap)[1])
+
     def push(self, x: int) -> None:
-        heapq.heappush(self.max_heap, (-x, self.id))
+        heapq.heappush(self.heap, (-x, self.id))
         self.stack.append((x, self.id))
         self.id -= 1
         
-    
-    def _cleanup(self):
-        while self.stack and self.stack[-1][1] in self.soft_delete:
-            self.soft_delete.remove(self.stack.pop()[1])
-        while self.max_heap and self.max_heap[0][1] in self.soft_delete:
-            self.soft_delete.remove(heapq.heappop(self.max_heap)[1])
-    
+        
+        
+
     def pop(self) -> int:
-        element, element_key = self.stack.pop()
-        self.soft_delete.add(element_key)
-        self._cleanup()
-        return element
+        if self.stack:
+            element, key = self.stack.pop()
+            self.soft.add(key)
+            self._soft_delete()
+            
+            return element
         
 
     def top(self) -> int:
-        return self.stack[-1][0]
+        if self.stack:
+            return self.stack[-1][0]
         
 
     def peekMax(self) -> int:
-        return -self.max_heap[0][0]
+        if self.heap:
+            return -self.heap[0][0]
         
 
     def popMax(self) -> int:
-        element, element_key = heapq.heappop(self.max_heap)
-        self.soft_delete.add(element_key)
-        self._cleanup()
-        return -element
+        if self.stack and self.heap:
+            element, key = heapq.heappop(self.heap)
+            self.soft.add(key)
+            self._soft_delete()
+            
+            return -element
         
 
 

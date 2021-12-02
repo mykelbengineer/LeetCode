@@ -6,24 +6,28 @@
 #         self.right = right
 class Solution:
     def widthOfBinaryTree(self, root: Optional[TreeNode]) -> int:
-        ans = 0
-        current =[(root, 0)]
+        if not root: return 0
         
-        while current:
-            ans = max(ans, current[-1][1] - current[0][1] + 1)
+        max_width = 0
+        index = 0
+        stack = [(root, index)]
+        
+        while stack:
             next_level = []
             
-            for node, pos in current:
+            max_width = max(max_width, stack[-1][1] - stack[0][1] + 1)
+            
+            for node, index in stack:
+            
                 if node.left:
-                    next_level.append((node.left, pos * 2))
-                    
-                if node.right:
-                    next_level.append((node.right, pos * 2 + 1))
 
-            
-            current = next_level
-            
-        
-        return ans
-            
+                    next_level.append((node.left, index * 2))
+
+                if node.right:
+
+                    next_level.append((node.right, index * 2 + 1))
+                    
+            stack = next_level
+                
+        return max_width
         

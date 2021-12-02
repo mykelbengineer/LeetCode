@@ -7,7 +7,7 @@
 class BSTIterator:
 
     def __init__(self, root: Optional[TreeNode]):
-        self.sorted_nodes = []
+        self.sorted_array = []
         self.index = -1
         
         self._inorder(root)
@@ -16,15 +16,17 @@ class BSTIterator:
     def _inorder(self, node):
         if node:
             self._inorder(node.left)
-            self.sorted_nodes.append(node.val)
+            self.sorted_array.append(node.val)
             self._inorder(node.right)
+        
 
     def next(self) -> int:
         self.index += 1
-        return self.sorted_nodes[self.index]
+        return self.sorted_array[self.index]
+        
 
     def hasNext(self) -> bool:
-        return self.index + 1 < len(self.sorted_nodes)
+        return self.index + 1 < len(self.sorted_array)
         
 
 

@@ -8,21 +8,25 @@ class Node:
 
 class Solution:
     def cloneGraph(self, node: 'Node') -> 'Node':
+        
         if not node: return None
         
-        oldToNewMap = {}
+        g_map = {node: Node(node.val)}
+        stack = [(node)]
         
-        def dfs(node):
-            if node in oldToNewMap:
-                return oldToNewMap[node]
+        
+        while stack:
             
-            copy = Node(node.val)
-            oldToNewMap[node] = copy
+            curr = stack.pop()
             
-            for nei in node.neighbors:
-                copy.neighbors.append(dfs(nei))
+            for neigh in curr.neighbors:
+                if neigh not in g_map:
+                    g_map[neigh] = Node(neigh.val)
+                    stack.append(neigh)
+                    
+                g_map[neigh].neighbors.append(g_map[curr])
                 
-            return copy
+        return g_map[node]
+            
+            
         
-        
-        return dfs(node)

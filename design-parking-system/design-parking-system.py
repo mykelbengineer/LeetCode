@@ -6,7 +6,7 @@ class ParkingSystem:
 
     def addCar(self, carType: int) -> bool:
         if self.cs[carType] > 0:
-            self.cs[carType] = self.cs[carType] - 1
+            self.cs[carType] -= 1
             return True
         
         else:

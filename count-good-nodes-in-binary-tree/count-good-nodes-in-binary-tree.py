@@ -6,26 +6,26 @@
 #         self.right = right
 class Solution:
     def goodNodes(self, root: TreeNode) -> int:
-        if not root: return 0
         
-        max_so_far = float('-inf')
-        curr = [(root, max_so_far)]
-        num_of_good = 0
+        if not root: return None
+        numOfGood = 0
+        stack = [(root, float(-inf))]
         
-        while curr:
+        while stack:
             
-            node, direction_max = curr.pop()
+            node, directionMax = stack.pop()
+            
+            if node.val >= directionMax:
+                numOfGood += 1
                 
-            if direction_max <= node.val:
-                num_of_good += 1
-
             if node.left:
+                stack.append((node.left, max(node.val, directionMax)))
                 
-                curr.append((node.left, max(direction_max, node.val)))
-
             if node.right:
-                            
-                curr.append((node.right, max(direction_max, node.val)))
-            
-        return num_of_good
+                stack.append((node.right, max(node.val, directionMax)))
+                
+        return numOfGood
+                
+        
+        
         

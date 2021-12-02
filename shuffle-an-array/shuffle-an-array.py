@@ -1,21 +1,22 @@
 class Solution:
 
     def __init__(self, nums: List[int]):
-        self.newArray = nums
-        self.original = list(nums)
+        self.original = nums
+        self.backup = list(nums)
         
 
     def reset(self) -> List[int]:
-        self.newArray = self.original
-        self.original = list(self.original)
-        return self.newArray
+        self.original = self.backup
+        self.backup = list(self.original)
+        return self.original
         
 
     def shuffle(self) -> List[int]:
-        for i in range(len(self.newArray)):
-            rand = random.randrange(i,len(self.newArray))
-            self.newArray[i], self.newArray[rand] = self.newArray[rand], self.newArray[i]
-        return self.newArray
+        for i in range(len(self.original)):
+            rand = random.randrange(i, len(self.original))
+            self.original[rand], self.original[i] = self.original[i], self.original[rand]
+            
+        return self.original
         
 
 

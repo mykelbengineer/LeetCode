@@ -7,22 +7,25 @@
 class Solution:
     def maxPathSum(self, root: Optional[TreeNode]) -> int:
         
-        self.ans = float(-inf)
+        self.ans = float('-inf')
         
-        def dfs(node):
+        def maxPath(node):
             
             if not node: return 0
             
-            left = max(dfs(node.left), 0)
-            right = max(dfs(node.right), 0)
+            left = max(maxPath(node.left),0)
+            right = max(maxPath(node.right),0)
             
-            distance = node.val + left + right
             
-            self.ans = max(self.ans, distance)
+            path = left + right + node.val
+            
+            self.ans = max(self.ans, path)
             
             return node.val + max(left, right)
-
-        
-        dfs(root)
+            
+            
+        maxPath(root)
         
         return self.ans
+            
+            

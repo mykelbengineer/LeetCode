@@ -1,5 +1,13 @@
 class Solution:
     def totalMoney(self, n: int) -> int:
-        return sum([i//7 + i%7 + 1 for i in range(n)])
+        output = k = 0
+        
+        for num in range(n):
+            if num % 7 == 0: k = num // 7
             
+            k += 1
+            
+            output += k
+            
+        return output
         

@@ -5,36 +5,39 @@ class Solution:
         """
         
         rows = len(matrix)
-        columns = len(matrix[0])
+        cols = len(matrix[0])
         
-        def flip_row(index):
-            for i in range(columns):
+        
+        def flipRow(index):
+            for i in range(cols):
                 if matrix[index][i] != 0:
                     matrix[index][i] = '*'
                     
-        def flip_column(index):
+        def flipCol(index):
             for i in range(rows):
                 if matrix[i][index] != 0:
                     matrix[i][index] = '*'
                     
-        
+                    
         for i in range(rows):
-            for j in range(columns):
+            for j in range(cols):
                 if matrix[i][j] == 0:
-                    flip_row(i)
+                    flipRow(i)
+                    
                     
         for i in range(rows):
-            for j in range(columns):
+            for j in range(cols):
                 if matrix[i][j] == 0:
-                    flip_column(j)
+                    flipCol(j)
                     
                     
         for i in range(rows):
-            for j in range(columns):
+            for j in range(cols):
                 if matrix[i][j] == '*':
                     matrix[i][j] = 0
                     
                     
         
+                    
         
         

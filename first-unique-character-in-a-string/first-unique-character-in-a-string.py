@@ -1,3 +1,4 @@
+from collections import Counter
 class Solution:
     def firstUniqChar(self, s: str) -> int:
         counts = Counter(s)
@@ -7,4 +8,5 @@ class Solution:
                 return index
             
         return -1
+        
         

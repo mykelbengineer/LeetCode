@@ -3,14 +3,15 @@ class Solution:
         """
         Do not return anything, modify s in-place instead.
         """
-        L = 0
-        R = len(s) - 1
         
-        while L <= R:
-            s[L] , s[R] = s[R] , s[L]
+        def reverse(s, indX, indY):
             
-            L += 1
-            R -= 1
+            if indX >= (len(s) // 2): return
             
+            s[indX], s[indY] = s[indY], s[indX]
+            
+            return reverse(s, indX + 1, indY - 1)
         
+        
+        reverse(s,0, len(s)-1)
         
